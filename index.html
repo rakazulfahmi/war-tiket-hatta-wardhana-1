@@ -263,17 +263,46 @@ function openForm(){
   document.getElementById('form-section').style.display='block';
 }
 
-function handleSubmit(){
-  const name = document.getElementById('name-input').value.trim();
+async function handleSubmit() {
+  const nameInput = document.getElementById('name-input');
+  const name = nameInput.value.trim();
+  const btn = document.getElementById('submit-btn');
+  
   if(!name) return alert("Mohon masukkan nama lengkap Anda");
-  
-  document.getElementById('t-name').textContent = name;
-  document.getElementById('t-row').textContent = ['A','B','C'][Math.floor(Math.random()*3)];
-  document.getElementById('t-seat').textContent = Math.floor(Math.random()*40)+1;
-  document.getElementById('t-order').textContent = "ORDER #"+Math.floor(Math.random()*9000+1000);
-  
-  document.getElementById('page-countdown').style.display='none';
-  document.getElementById('page-ticket').style.display='flex';
+
+  // Efek visual saat mengirim agar user tidak klik berulang kali
+  btn.disabled = true;
+  btn.textContent = "MENGIRIM...";
+  btn.style.opacity = "0.5";
+
+  try {
+    // Alamat pintu database Google Sheets Anda
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxFbmwLZMkQWFU7y6p08uI448O8hRQx027eXmlMol33C77rbPu5DHipSotV7aYlwDHrmA/exec';
+    
+    // Mengirim data nama ke Google Sheets
+    // Menggunakan mode: 'no-cors' agar data terkirim tanpa hambatan kebijakan browser
+    await fetch(`${scriptURL}?nama=${encodeURIComponent(name)}`, { 
+      method: 'GET',
+      mode: 'no-cors'
+    });
+
+    // --- PROSES TAMPILAN TIKET (Kode asli Anda tetap dipertahankan di sini) ---
+    document.getElementById('t-name').textContent = name;
+    document.getElementById('t-row').textContent = ['A','B','C'][Math.floor(Math.random()*3)];
+    document.getElementById('t-seat').textContent = Math.floor(Math.random()*40)+1;
+    document.getElementById('t-order').textContent = "ORDER #" + Math.floor(Math.random()*9000+1000);
+    
+    // Sembunyikan form dan tampilkan tiket
+    document.getElementById('page-countdown').style.display = 'none';
+    document.getElementById('page-ticket').style.display = 'flex';
+
+  } catch (error) {
+    console.error('Error!', error.message);
+    // Jika gagal kirim ke database, tiket tetap dimunculkan agar user tidak bingung
+    document.getElementById('t-name').textContent = name;
+    document.getElementById('page-countdown').style.display = 'none';
+    document.getElementById('page-ticket').style.display = 'flex';
+  }
 }
 
 function showScreenshotPopup(){
