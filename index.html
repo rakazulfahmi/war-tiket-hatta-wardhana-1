@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Hatta Wardhana Live in Concert – Echoes of Legacy. 30 April 2026, Main Hall Bea Cukai Pasuruan.">
+<title>Hatta Wardhana — Live in Concert</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════ TOKENS ═══════════════════════════ */
+:root{
+  --black:#0B0B0B;
+  --gold:#D4AF37;--gold2:#C9A24A;
+  --gold-dim:#8a6e22;--gold-light:#F0D070;
+  --cream:#F5E9CC;
+  --muted:rgba(212,175,55,0.55);
+  --border:rgba(212,175,55,0.25);
+  --text:#EEE0B8;
+}
+
+/* ═══════════════════════════ BASE ═══════════════════════════ */
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background: var(--black);
+  /* Overlay gelap 90% agar teks kontras tinggi */
+  background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('background.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color:var(--text);
+  font-family:'Cormorant Garamond',serif;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* grain effect */
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.055'/%3E%3C/svg%3E");pointer-events:none;z-index:9998;opacity:.6;}
+
+.corner-frame{position:fixed;inset:10px;border:1px solid rgba(212,175,55,.18);border-radius:4px;pointer-events:none;z-index:9997;}
+
+.float-reset{position:fixed;top:14px;right:14px;z-index:9999;background:rgba(0,0,0,0.6);border:1px solid var(--gold-dim);border-radius:100px;padding:6px 14px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .25s;backdrop-filter:blur(8px);}
+.float-reset:hover{background:var(--gold);color:var(--black);}
+
+/* ═══════════════════════════ SPARKS ═══════════════════════════ */
+.sparks{position:fixed;inset:0;pointer-events:none;z-index:0;}
+.spark{position:absolute;width:2px;height:2px;border-radius:50%;background:var(--gold);opacity:0;animation:sparkFloat linear infinite;}
+@keyframes sparkFloat{0%{transform:translateY(100vh) translateX(0);opacity:0;}8%{opacity:.55;}80%{opacity:.3;}100%{transform:translateY(-5vh) translateX(var(--dx));opacity:0;}}
+
+/* ═══════════════════════════ SHARED ═══════════════════════════ */
+.page{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px 48px;}
+
+.ornament{display:flex;align-items:center;gap:14px;width:100%;max-width:440px;margin:16px auto;}
+.ornament::before,.ornament::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);}
+.ornament-inner{color:var(--gold-dim);font-size:14px;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes blink{0%,100%{opacity:.7}50%{opacity:.1}}
+@keyframes numFlip{0%{transform:translateY(0);opacity:1;}50%{transform:translateY(-6px);opacity:0;}100%{transform:translateY(0);opacity:1;}}
+@keyframes urgentPulse{from{box-shadow:0 0 0 rgba(212,175,55,0)}to{box-shadow:0 0 18px rgba(212,175,55,.4)}}
+
+/* ═══════════════════════════ PAGE 1 — COUNTDOWN ═══════════════════════════ */
+.poster-header{text-align:center;max-width:500px;margin-bottom:28px;}
+.poster-tag{display:inline-block;font-style:italic;font-size:13px;letter-spacing:3px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:20px;animation:fadeUp .8s ease both;}
+.poster-title{font-family:'Cinzel',serif;font-size:clamp(34px,8vw,72px);font-weight:700;line-height:1;letter-spacing:4px;background:linear-gradient(180deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:fadeUp .8s .1s ease both;}
+.poster-sub{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(16px,3.5vw,24px);color:var(--gold-dim);letter-spacing:2px;margin-top:6px;animation:fadeUp .8s .2s ease both;}
+.poster-tagline{font-family:'Cinzel',serif;font-size:clamp(10px,2vw,13px);letter-spacing:5px;text-transform:uppercase;color:var(--muted);margin-top:4px;animation:fadeUp .8s .25s ease both;}
+.poster-details{text-align:center;margin-top:8px;font-size:clamp(13px,2.5vw,16px);letter-spacing:3px;color:var(--gold-dim);text-transform:uppercase;animation:fadeUp .8s .35s ease both;}
+.poster-details .date{font-family:'Cinzel',serif;color:var(--gold);display:block;margin-bottom:4px;}
+
+/* COUNTDOWN */
+.cd-wrap{animation:fadeUp .8s .45s ease both;width:100%;max-width:500px;margin-top:28px;}
+.cd-label{font-style:italic;font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:18px;}
+
+.cd-grid{display:flex;align-items:center;gap:8px;justify-content:center;}
+.cd-block{background:rgba(0,0,0,0.5);border:1px solid var(--border);border-radius:8px;padding:18px 16px;min-width:88px;text-align:center;position:relative;flex:1;max-width:108px;}
+.cd-block.urgent{border-color:rgba(212,175,55,.6);animation:urgentPulse .6s ease-in-out infinite alternate;}
+
+.cd-num{font-family:'Cinzel',serif;font-size:clamp(30px,7vw,50px);font-weight:700;color:var(--gold);display:block;line-height:1;}
+.cd-num.flip{animation:numFlip .2s ease;}
+.cd-lbl{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-dim);margin-top:6px;display:block;}
+
+.cd-sep{font-family:'Cinzel',serif;font-size:clamp(24px,5vw,38px);color:var(--gold-dim);padding-bottom:22px;animation:blink 1.2s step-end infinite;}
+
+.cd-progress{margin-top:22px;}
+.cd-pinfo{display:flex;justify-content:space-between;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:7px;}
+.cd-bar{height:1px;background:rgba(212,175,55,.1);border-radius:100px;overflow:hidden;}
+.cd-fill{height:100%;background:linear-gradient(90deg,var(--gold-dim),var(--gold));transition:width .4s linear;}
+
+/* ═══════════════════════════ FORM & TICKET ═══════════════════════════ */
+#form-section{display:none;width:100%;max-width:420px;animation:formReveal .9s cubic-bezier(.34,1.56,.64,1) both;}
+@keyframes formReveal{from{opacity:0;transform:scale(.88) translateY(24px)}to{opacity:1;transform:scale(1) translateY(0)}}
+
+.form-card{background:rgba(15,12,5,0.98);border:1px solid var(--border);border-radius:4px;padding:40px 36px;backdrop-filter:blur(15px);text-align:center;}
+.form-title{font-family:'Cinzel',serif;font-size:22px;color:var(--gold);letter-spacing:3px;margin-bottom:12px;}
+.name-input{width:100%;background:rgba(212,175,55,.05);border:1px solid var(--border);padding:16px;color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:18px;text-align:center;outline:none;margin-bottom:10px;}
+.submit-btn{width:100%;background:var(--gold-dim);border:none;padding:16px;color:var(--black);font-family:'Cinzel',serif;font-weight:700;letter-spacing:4px;cursor:pointer;transition: .3s;}
+.submit-btn:hover{background:var(--gold);}
+
+/* E-TICKET */
+#page-ticket{display:none;}
+.eticket{width:360px;background:#0d0c04;border:1px solid var(--gold-dim);position:relative;box-shadow:0 20px 50px rgba(0,0,0,0.9);}
+.t-banner{padding:30px 20px;text-align:center;border-bottom:1px solid var(--border);}
+.t-attendee{font-family:'Playfair Display',serif;font-size:22px;color:var(--cream);padding:15px;border-bottom:1px solid var(--border);text-align:center;}
+.t-details{padding:20px;font-size:14px;}
+.t-qr-section{padding:20px;text-align:center;background:rgba(255,255,255,0.02);}
+.t-qr-img{width:150px; height:150px; border: 1px solid var(--border); padding: 5px; background: white;}
+.t-seat-row{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid var(--border);text-align:center;}
+.t-seat-cell{padding:15px 5px;border-right:1px solid var(--border);}
+.sc-val{font-family:'Cinzel',serif;color:var(--gold);font-size:18px;}
+
+/* ═══════════════════════════ POPUP ═══════════════════════════ */
+.popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:10000;align-items:center;justify-content:center;}
+.popup-box{background:#111;border:1px solid var(--gold);padding:30px;text-align:center;max-width:300px; border-radius:4px;}
+.show{display:flex !important;}
+
+</style>
+</head>
+<body>
+
+<div class="corner-frame"></div>
+<button class="float-reset" onclick="location.reload()">↺ Ulang Simulasi</button>
+<div class="sparks" id="sparks"></div>
+
+<div class="page" id="page-countdown">
+  <div class="poster-header">
+    <div class="poster-tag">— Sebuah Konser Istimewa —</div>
+    <div class="poster-title">HATTA WARDHANA</div>
+    <div class="ornament"><div class="ornament-inner">❧</div></div>
+    <div class="poster-sub">Live in Concert</div>
+    <div class="poster-tagline">Echoes of Legacy</div>
+    <div class="poster-details">
+      <span class="date">30 April 2026</span>
+      Main Hall Bea Cukai Pasuruan
+    </div>
+  </div>
+
+  <div class="cd-wrap" id="cd-wrap">
+    <div class="cd-label">War Tiket Dibuka Dalam</div>
+    <div class="cd-grid">
+      <div class="cd-block" id="block-h"><span class="cd-num" id="num-h">00</span><span class="cd-lbl">Jam</span></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-block" id="block-m"><span class="cd-num" id="num-m">00</span><span class="cd-lbl">Menit</span></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-block" id="block-s"><span class="cd-num" id="num-s">08</span><span class="cd-lbl">Detik</span></div>
+    </div>
+    <div class="cd-progress">
+      <div class="cd-pinfo"><span>Sinkronisasi Pemesanan Tiket</span><span id="pct-lbl">0%</span></div>
+      <div class="cd-bar"><div class="cd-fill" id="cd-fill" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <div id="form-section">
+    <div class="form-card">
+      <div class="form-title">DAPATKAN TIKET</div>
+      <input type="text" id="name-input" class="name-input" placeholder="Nama Lengkap Anda" maxlength="40">
+      <button class="submit-btn" id="submit-btn" onclick="handleSubmit()">KONFIRMASI KEHADIRAN</button>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-ticket">
+  <div class="eticket">
+    <div class="t-banner">
+      <div style="font-size:10px; letter-spacing:2px; color:var(--muted)">E-TICKET EKSKLUSIF</div>
+      <div style="font-family:'Cinzel'; color:var(--gold); font-size:24px; margin:10px 0">HATTA WARDHANA</div>
+      <div style="font-style:italic; font-size:14px">Special Concert</div>
+    </div>
+    <div class="t-attendee" id="t-name">NAMA TAMU</div>
+    <div class="t-details">
+      <div style="margin-bottom:10px"><strong>TANGGAL:</strong> 30 April 2026</div>
+      <div style="margin-bottom:10px"><strong>LOKASI:</strong> Main Hall Bea Cukai Pasuruan</div>
+      <div><strong>OPEN GATE:</strong> 10:00 WIB</div>
+    </div>
+    <div class="t-qr-section">
+      <img src="qr.png" alt="QR Code" class="t-qr-img">
+    </div>
+    <div class="t-seat-row">
+      <div class="t-seat-cell"><span style="font-size:9px">SESI</span><br><span class="sc-val">VIP</span></div>
+      <div class="t-seat-cell"><span style="font-size:9px">BARIS</span><br><span class="sc-val" id="t-row">A</span></div>
+      <div class="t-seat-cell" style="border:none"><span style="font-size:9px">KURSI</span><br><span class="sc-val" id="t-seat">12</span></div>
+    </div>
+    <div style="text-align:center; padding:10px; font-size:9px; color:var(--muted)" id="t-order">ORDER #000-000</div>
+  </div>
+  <button class="submit-btn" style="width:360px; margin-top:20px;" onclick="showScreenshotPopup()">SIMPAN TIKET (SS)</button>
+</div>
+
+<div class="popup-overlay" id="popup-ss">
+  <div class="popup-box">
+    <div style="font-size:40px">📸</div>
+    <div class="form-title">SCREENSHOT</div>
+    <p style="font-size:14px; color:var(--muted); margin-bottom:20px">Silakan screenshot layar ini sebagai bukti akses masuk venue.</p>
+    <button class="submit-btn" onclick="document.getElementById('popup-ss').classList.remove('show')">MENGERTI</button>
+  </div>
+</div>
+
+<script>
+/* ── Sparks Effect ── */
+(function(){
+  const c=document.getElementById('sparks');
+  for(let i=0;i<25;i++){
+    const p=document.createElement('div');p.className='spark';
+    p.style.cssText=`left:${Math.random()*100}%;--dx:${(Math.random()-.5)*150}px;animation-duration:${5+Math.random()*8}s;animation-delay:${Math.random()*5}s;`;
+    c.appendChild(p);
+  }
+})();
+
+/* ── Logic Countdown & Simulation ── */
+const targetDate = new Date("April 27, 2026 12:30:00").getTime();
+const SIM_TIME = 8000; // 8 detik simulasi war
+const simEnd = Date.now() + SIM_TIME;
+
+let pH='', pM='', pS='';
+
+function pad(n){ return String(Math.max(0,n)).padStart(2,'0'); }
+
+function tick(){
+  const now = Date.now();
+  const realRem = targetDate - now;
+
+  // JIKA SUDAH MELEWATI TANGGAL TARGET -> Jalankan Simulasi 8 Detik
+  if(realRem <= 0){
+    const simRem = simEnd - now;
+    if(simRem <= 0){
+      updateDisplay("00","00","00");
+      document.getElementById('cd-fill').style.width='100%';
+      document.getElementById('pct-lbl').textContent='100%';
+      setTimeout(openForm, 400);
+      return;
+    }
+    const s = Math.floor(simRem/1000);
+    updateDisplay("00","00", pad(s));
+    
+    // Aktifkan visual urgent
+    ['block-h','block-m','block-s'].forEach(id=>document.getElementById(id).classList.add('urgent'));
+    const pct = Math.round(((SIM_TIME-simRem)/SIM_TIME)*100);
+    document.getElementById('cd-fill').style.width=pct+'%';
+    document.getElementById('pct-lbl').textContent=pct+'%';
+    setTimeout(tick, 200);
+  } 
+  // JIKA BELUM TARGET -> Tampilkan Waktu Asli
+  else {
+    const h = Math.floor(realRem/3600000);
+    const m = Math.floor((realRem%3600000)/60000);
+    const s = Math.floor((realRem%60000)/1000);
+    updateDisplay(pad(h), pad(m), pad(s));
+    setTimeout(tick, 1000);
+  }
+}
+
+function updateDisplay(h,m,s){
+  const elH=document.getElementById('num-h'), elM=document.getElementById('num-m'), elS=document.getElementById('num-s');
+  if(h!==pH){ elH.classList.add('flip'); elH.textContent=h; setTimeout(()=>elH.classList.remove('flip'),200); }
+  if(m!==pM){ elM.classList.add('flip'); elM.textContent=m; setTimeout(()=>elM.classList.remove('flip'),200); }
+  if(s!==pS){ elS.classList.add('flip'); elS.textContent=s; setTimeout(()=>elS.classList.remove('flip'),200); }
+  pH=h; pM=m; pS=s;
+}
+
+function openForm(){
+  document.getElementById('cd-wrap').style.display='none';
+  document.getElementById('form-section').style.display='block';
+}
+
+function handleSubmit(){
+  const name = document.getElementById('name-input').value.trim();
+  if(!name) return alert("Mohon masukkan nama lengkap Anda");
+  
+  document.getElementById('t-name').textContent = name;
+  document.getElementById('t-row').textContent = ['A','B','C'][Math.floor(Math.random()*3)];
+  document.getElementById('t-seat').textContent = Math.floor(Math.random()*40)+1;
+  document.getElementById('t-order').textContent = "ORDER #"+Math.floor(Math.random()*9000+1000);
+  
+  document.getElementById('page-countdown').style.display='none';
+  document.getElementById('page-ticket').style.display='flex';
+}
+
+function showScreenshotPopup(){
+  document.getElementById('popup-ss').classList.add('show');
+}
+
+tick();
+</script>
+</body>
+</html>
