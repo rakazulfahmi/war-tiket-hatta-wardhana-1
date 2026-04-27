@@ -18,6 +18,9 @@
   --muted:rgba(212,175,55,0.55);
   --border:rgba(212,175,55,0.25);
   --text:#EEE0B8;
+  --status-green: #2ecc71;
+  --status-yellow: #f1c40f;
+  --status-red: #e74c3c;
 }
 
 /* ═══════════════════════════ BASE ═══════════════════════════ */
@@ -25,8 +28,7 @@
 html{scroll-behavior:smooth;}
 body{
   background: var(--black);
-  /* Overlay gelap 90% agar teks kontras tinggi */
-  background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('background.png');
+  background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('background.png');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -34,6 +36,59 @@ body{
   font-family:'Cormorant Garamond',serif;
   min-height:100vh;
   overflow-x:hidden;
+}
+
+/* ═══════════════════════════ DYNAMIC ISLAND (RESIZED +15%) ═══════════════════════════ */
+.di-container {
+  position: fixed;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10001;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.di-capsule {
+  background: rgba(0, 0, 0, 0.85);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  padding: 7px 16px; /* Proporsional +15% */
+  border-radius: 24px;
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 162px; /* Proporsional +15% */
+  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+  animation: fadeUp 0.8s ease;
+}
+
+.di-dot {
+  width: 9.5px; /* Proporsional +15% */
+  height: 9.5px;
+  border-radius: 50%;
+  background: var(--status-green);
+  box-shadow: 0 0 9px var(--status-green);
+  animation: blinkSlow 2s infinite ease-in-out;
+}
+
+.di-text {
+  font-family: 'Cinzel', serif;
+  font-size: 11.5px; /* Proporsional +15% */
+  letter-spacing: 1.2px;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.di-val {
+  font-weight: 700;
+  color: var(--gold);
+}
+
+@keyframes blinkSlow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.8); }
 }
 
 /* grain effect */
@@ -44,14 +99,13 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .float-reset{position:fixed;top:14px;right:14px;z-index:9999;background:rgba(0,0,0,0.6);border:1px solid var(--gold-dim);border-radius:100px;padding:6px 14px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .25s;backdrop-filter:blur(8px);}
 .float-reset:hover{background:var(--gold);color:var(--black);}
 
-/* ═══════════════════════════ SPARKS ═══════════════════════════ */
+/* SPARKS */
 .sparks{position:fixed;inset:0;pointer-events:none;z-index:0;}
 .spark{position:absolute;width:2px;height:2px;border-radius:50%;background:var(--gold);opacity:0;animation:sparkFloat linear infinite;}
 @keyframes sparkFloat{0%{transform:translateY(100vh) translateX(0);opacity:0;}8%{opacity:.55;}80%{opacity:.3;}100%{transform:translateY(-5vh) translateX(var(--dx));opacity:0;}}
 
-/* ═══════════════════════════ SHARED ═══════════════════════════ */
+/* SHARED */
 .page{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px 48px;}
-
 .ornament{display:flex;align-items:center;gap:14px;width:100%;max-width:440px;margin:16px auto;}
 .ornament::before,.ornament::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);}
 .ornament-inner{color:var(--gold-dim);font-size:14px;}
@@ -61,7 +115,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 @keyframes numFlip{0%{transform:translateY(0);opacity:1;}50%{transform:translateY(-6px);opacity:0;}100%{transform:translateY(0);opacity:1;}}
 @keyframes urgentPulse{from{box-shadow:0 0 0 rgba(212,175,55,0)}to{box-shadow:0 0 18px rgba(212,175,55,.4)}}
 
-/* ═══════════════════════════ PAGE 1 — COUNTDOWN ═══════════════════════════ */
+/* PAGE 1 — COUNTDOWN */
 .poster-header{text-align:center;max-width:500px;margin-bottom:28px;}
 .poster-tag{display:inline-block;font-style:italic;font-size:13px;letter-spacing:3px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:20px;animation:fadeUp .8s ease both;}
 .poster-title{font-family:'Cinzel',serif;font-size:clamp(34px,8vw,72px);font-weight:700;line-height:1;letter-spacing:4px;background:linear-gradient(180deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:fadeUp .8s .1s ease both;}
@@ -89,7 +143,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .cd-bar{height:1px;background:rgba(212,175,55,.1);border-radius:100px;overflow:hidden;}
 .cd-fill{height:100%;background:linear-gradient(90deg,var(--gold-dim),var(--gold));transition:width .4s linear;}
 
-/* ═══════════════════════════ FORM & TICKET ═══════════════════════════ */
+/* FORM & TICKET */
 #form-section{display:none;width:100%;max-width:420px;animation:formReveal .9s cubic-bezier(.34,1.56,.64,1) both;}
 @keyframes formReveal{from{opacity:0;transform:scale(.88) translateY(24px)}to{opacity:1;transform:scale(1) translateY(0)}}
 
@@ -111,7 +165,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .t-seat-cell{padding:15px 5px;border-right:1px solid var(--border);}
 .sc-val{font-family:'Cinzel',serif;color:var(--gold);font-size:18px;}
 
-/* ═══════════════════════════ POPUP ═══════════════════════════ */
+/* POPUP */
 .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:10000;align-items:center;justify-content:center;}
 .popup-box{background:#111;border:1px solid var(--gold);padding:30px;text-align:center;max-width:300px; border-radius:4px;}
 .show{display:flex !important;}
@@ -119,6 +173,13 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 </style>
 </head>
 <body>
+
+<div class="di-container">
+  <div class="di-capsule" id="di-island">
+    <div class="di-dot" id="di-dot"></div>
+    <div class="di-text">Kapasitas: <span class="di-val" id="di-pct">100%</span></div>
+  </div>
+</div>
 
 <div class="corner-frame"></div>
 <button class="float-reset" onclick="location.reload()">↺ Ulang Simulasi</button>
@@ -197,6 +258,69 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 </div>
 
 <script>
+/* ── DYNAMIC ISLAND CAPACITY LOGIC (UPDATED) ── */
+function updateIslandCapacity() {
+  const now = new Date();
+  
+  // Set Target Date: 28 April 2026
+  const pDay = 28;
+  const pMonth = 3; // April (0-indexed)
+  const pYear = 2026;
+
+  // Key Points in time (Konfigurasi baru Bapak)
+  const p1 = new Date(pYear, pMonth, pDay, 12, 30).getTime(); // 12:30 -> 100%
+  const p2 = new Date(pYear, pMonth, pDay, 12, 40).getTime(); // 12:40 -> 31%
+  const p3 = new Date(pYear, pMonth, pDay, 13, 30).getTime(); // 13:30 -> 16%
+  const p4 = new Date(pYear, pMonth, pDay, 23, 59).getTime(); // Tengah malam -> 7%
+  
+  const currentTime = now.getTime();
+  let pct = 100;
+
+  if (currentTime < p1) {
+    // Sebelum jam 12:30
+    pct = 100;
+  } else if (currentTime >= p1 && currentTime < p2) {
+    // 12:30 ke 12:40 (Anjlok 69% dalam 10 menit)
+    const ratio = (currentTime - p1) / (p2 - p1);
+    pct = 100 - (ratio * 69); 
+  } else if (currentTime >= p2 && currentTime < p3) {
+    // 12:40 ke 13:30 (Turun perlahan dari 31% ke 16%)
+    const ratio = (currentTime - p2) / (p3 - p2);
+    pct = 31 - (ratio * 15);
+  } else if (currentTime >= p3 && currentTime < p4) {
+    // 13:30 ke 24:00 (Turun sangat lambat dari 16% ke 7%)
+    const ratio = (currentTime - p3) / (p4 - p3);
+    pct = 16 - (ratio * 9);
+  } else {
+    // Setelah tengah malam
+    pct = 7;
+  }
+
+  // Update Tampilan
+  const roundedPct = Math.round(pct);
+  const pctEl = document.getElementById('di-pct');
+  const dotEl = document.getElementById('di-dot');
+
+  if (pctEl) pctEl.textContent = roundedPct + '%';
+
+  // Update Indikator Warna (Blink)
+  if (dotEl) {
+    if (roundedPct > 70) {
+      dotEl.style.background = 'var(--status-green)';
+      dotEl.style.boxShadow = '0 0 9px var(--status-green)';
+    } else if (roundedPct >= 25) {
+      dotEl.style.background = 'var(--status-yellow)';
+      dotEl.style.boxShadow = '0 0 9px var(--status-yellow)';
+    } else {
+      dotEl.style.background = 'var(--status-red)';
+      dotEl.style.boxShadow = '0 0 9px var(--status-red)';
+    }
+  }
+}
+
+setInterval(updateIslandCapacity, 1000);
+updateIslandCapacity();
+
 /* ── Sparks Effect ── */
 (function(){
   const c=document.getElementById('sparks');
@@ -209,7 +333,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 
 /* ── Logic Countdown & Simulation ── */
 const targetDate = new Date("April 28, 2026 12:30:00").getTime();
-const SIM_TIME = 8000; // 8 detik simulasi war
+const SIM_TIME = 8000; 
 const simEnd = Date.now() + SIM_TIME;
 
 let pH='', pM='', pS='';
@@ -220,7 +344,6 @@ function tick(){
   const now = Date.now();
   const realRem = targetDate - now;
 
-  // JIKA SUDAH MELEWATI TANGGAL TARGET -> Jalankan Simulasi 8 Detik
   if(realRem <= 0){
     const simRem = simEnd - now;
     if(simRem <= 0){
@@ -233,14 +356,12 @@ function tick(){
     const s = Math.floor(simRem/1000);
     updateDisplay("00","00", pad(s));
     
-    // Aktifkan visual urgent
     ['block-h','block-m','block-s'].forEach(id=>document.getElementById(id).classList.add('urgent'));
     const pct = Math.round(((SIM_TIME-simRem)/SIM_TIME)*100);
     document.getElementById('cd-fill').style.width=pct+'%';
     document.getElementById('pct-lbl').textContent=pct+'%';
     setTimeout(tick, 200);
   } 
-  // JIKA BELUM TARGET -> Tampilkan Waktu Asli
   else {
     const h = Math.floor(realRem/3600000);
     const m = Math.floor((realRem%3600000)/60000);
@@ -270,35 +391,28 @@ async function handleSubmit() {
   
   if(!name) return alert("Mohon masukkan nama lengkap Anda");
 
-  // Efek visual saat mengirim agar user tidak klik berulang kali
   btn.disabled = true;
   btn.textContent = "MENGIRIM...";
   btn.style.opacity = "0.5";
 
   try {
-    // Alamat pintu database Google Sheets Anda
     const scriptURL = 'https://script.google.com/macros/s/AKfycbxFbmwLZMkQWFU7y6p08uI448O8hRQx027eXmlMol33C77rbPu5DHipSotV7aYlwDHrmA/exec';
     
-    // Mengirim data nama ke Google Sheets
-    // Menggunakan mode: 'no-cors' agar data terkirim tanpa hambatan kebijakan browser
     await fetch(`${scriptURL}?nama=${encodeURIComponent(name)}`, { 
       method: 'GET',
       mode: 'no-cors'
     });
 
-    // --- PROSES TAMPILAN TIKET (Kode asli Anda tetap dipertahankan di sini) ---
     document.getElementById('t-name').textContent = name;
     document.getElementById('t-row').textContent = ['A','B','C'][Math.floor(Math.random()*3)];
     document.getElementById('t-seat').textContent = Math.floor(Math.random()*40)+1;
     document.getElementById('t-order').textContent = "ORDER #" + Math.floor(Math.random()*9000+1000);
     
-    // Sembunyikan form dan tampilkan tiket
     document.getElementById('page-countdown').style.display = 'none';
     document.getElementById('page-ticket').style.display = 'flex';
 
   } catch (error) {
     console.error('Error!', error.message);
-    // Jika gagal kirim ke database, tiket tetap dimunculkan agar user tidak bingung
     document.getElementById('t-name').textContent = name;
     document.getElementById('page-countdown').style.display = 'none';
     document.getElementById('page-ticket').style.display = 'flex';
