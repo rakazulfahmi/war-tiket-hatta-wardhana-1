@@ -38,7 +38,7 @@ body{
   overflow-x:hidden;
 }
 
-/* ═══════════════════════════ DYNAMIC ISLAND ═══════════════════════════ */
+/* ═══════════════════════════ DYNAMIC ISLAND (RESIZED +15%) ═══════════════════════════ */
 .di-container {
   position: fixed;
   top: 15px;
@@ -49,44 +49,53 @@ body{
   justify-content: center;
   pointer-events: none;
 }
+
 .di-capsule {
   background: rgba(0, 0, 0, 0.85);
   border: 1px solid rgba(212, 175, 55, 0.2);
-  padding: 7px 16px;
+  padding: 7px 16px; /* Proporsional +15% */
   border-radius: 24px;
   backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
   gap: 12px;
-  min-width: 162px;
+  min-width: 162px; /* Proporsional +15% */
   box-shadow: 0 4px 20px rgba(0,0,0,0.6);
   animation: fadeUp 0.8s ease;
 }
+
 .di-dot {
-  width: 9.5px;
+  width: 9.5px; /* Proporsional +15% */
   height: 9.5px;
   border-radius: 50%;
   background: var(--status-green);
   box-shadow: 0 0 9px var(--status-green);
   animation: blinkSlow 2s infinite ease-in-out;
 }
+
 .di-text {
   font-family: 'Cinzel', serif;
-  font-size: 11.5px;
+  font-size: 11.5px; /* Proporsional +15% */
   letter-spacing: 1.2px;
   color: #fff;
   white-space: nowrap;
 }
-.di-val { font-weight: 700; color: var(--gold); }
+
+.di-val {
+  font-weight: 700;
+  color: var(--gold);
+}
 
 @keyframes blinkSlow {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.3; transform: scale(0.8); }
 }
 
-/* ═══════════════════════════ COMPONENTS ═══════════════════════════ */
+/* grain effect */
 body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.055'/%3E%3C/svg%3E");pointer-events:none;z-index:9998;opacity:.6;}
+
 .corner-frame{position:fixed;inset:10px;border:1px solid rgba(212,175,55,.18);border-radius:4px;pointer-events:none;z-index:9997;}
+
 .float-reset{position:fixed;top:14px;right:14px;z-index:9999;background:rgba(0,0,0,0.6);border:1px solid var(--gold-dim);border-radius:100px;padding:6px 14px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .25s;backdrop-filter:blur(8px);}
 .float-reset:hover{background:var(--gold);color:var(--black);}
 
@@ -95,7 +104,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .spark{position:absolute;width:2px;height:2px;border-radius:50%;background:var(--gold);opacity:0;animation:sparkFloat linear infinite;}
 @keyframes sparkFloat{0%{transform:translateY(100vh) translateX(0);opacity:0;}8%{opacity:.55;}80%{opacity:.3;}100%{transform:translateY(-5vh) translateX(var(--dx));opacity:0;}}
 
-/* LAYOUT */
+/* SHARED */
 .page{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px 48px;}
 .ornament{display:flex;align-items:center;gap:14px;width:100%;max-width:440px;margin:16px auto;}
 .ornament::before,.ornament::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);}
@@ -106,7 +115,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 @keyframes numFlip{0%{transform:translateY(0);opacity:1;}50%{transform:translateY(-6px);opacity:0;}100%{transform:translateY(0);opacity:1;}}
 @keyframes urgentPulse{from{box-shadow:0 0 0 rgba(212,175,55,0)}to{box-shadow:0 0 18px rgba(212,175,55,.4)}}
 
-/* POSTER */
+/* PAGE 1 — COUNTDOWN */
 .poster-header{text-align:center;max-width:500px;margin-bottom:28px;}
 .poster-tag{display:inline-block;font-style:italic;font-size:13px;letter-spacing:3px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:20px;animation:fadeUp .8s ease both;}
 .poster-title{font-family:'Cinzel',serif;font-size:clamp(34px,8vw,72px);font-weight:700;line-height:1;letter-spacing:4px;background:linear-gradient(180deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:fadeUp .8s .1s ease both;}
@@ -118,13 +127,17 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 /* COUNTDOWN */
 .cd-wrap{animation:fadeUp .8s .45s ease both;width:100%;max-width:500px;margin-top:28px;}
 .cd-label{font-style:italic;font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:18px;}
+
 .cd-grid{display:flex;align-items:center;gap:8px;justify-content:center;}
 .cd-block{background:rgba(0,0,0,0.5);border:1px solid var(--border);border-radius:8px;padding:18px 16px;min-width:88px;text-align:center;position:relative;flex:1;max-width:108px;}
 .cd-block.urgent{border-color:rgba(212,175,55,.6);animation:urgentPulse .6s ease-in-out infinite alternate;}
+
 .cd-num{font-family:'Cinzel',serif;font-size:clamp(30px,7vw,50px);font-weight:700;color:var(--gold);display:block;line-height:1;}
 .cd-num.flip{animation:numFlip .2s ease;}
 .cd-lbl{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-dim);margin-top:6px;display:block;}
+
 .cd-sep{font-family:'Cinzel',serif;font-size:clamp(24px,5vw,38px);color:var(--gold-dim);padding-bottom:22px;animation:blink 1.2s step-end infinite;}
+
 .cd-progress{margin-top:22px;}
 .cd-pinfo{display:flex;justify-content:space-between;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:7px;}
 .cd-bar{height:1px;background:rgba(212,175,55,.1);border-radius:100px;overflow:hidden;}
@@ -133,6 +146,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 /* FORM & TICKET */
 #form-section{display:none;width:100%;max-width:420px;animation:formReveal .9s cubic-bezier(.34,1.56,.64,1) both;}
 @keyframes formReveal{from{opacity:0;transform:scale(.88) translateY(24px)}to{opacity:1;transform:scale(1) translateY(0)}}
+
 .form-card{background:rgba(15,12,5,0.98);border:1px solid var(--border);border-radius:4px;padding:40px 36px;backdrop-filter:blur(15px);text-align:center;}
 .form-title{font-family:'Cinzel',serif;font-size:22px;color:var(--gold);letter-spacing:3px;margin-bottom:12px;}
 .name-input{width:100%;background:rgba(212,175,55,.05);border:1px solid var(--border);padding:16px;color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:18px;text-align:center;outline:none;margin-bottom:10px;}
@@ -155,6 +169,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:10000;align-items:center;justify-content:center;}
 .popup-box{background:#111;border:1px solid var(--gold);padding:30px;text-align:center;max-width:300px; border-radius:4px;}
 .show{display:flex !important;}
+
 </style>
 </head>
 <body>
@@ -162,12 +177,12 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 <div class="di-container">
   <div class="di-capsule" id="di-island">
     <div class="di-dot" id="di-dot"></div>
-    <div class="di-text">Extra Seat: <span class="di-val" id="di-pct">95%</span></div>
+    <div class="di-text">Extra Seat: <span class="di-val" id="di-pct">100%</span></div>
   </div>
 </div>
 
 <div class="corner-frame"></div>
-<button class="float-reset" onclick="location.reload()">↺ Reset</button>
+<button class="float-reset" onclick="location.reload()">↺ Kembali</button>
 <div class="sparks" id="sparks"></div>
 
 <div class="page" id="page-countdown">
@@ -190,7 +205,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       <div class="cd-sep">:</div>
       <div class="cd-block" id="block-m"><span class="cd-num" id="num-m">00</span><span class="cd-lbl">Menit</span></div>
       <div class="cd-sep">:</div>
-      <div class="cd-block" id="block-s"><span class="cd-num" id="num-s">00</span><span class="cd-lbl">Detik</span></div>
+      <div class="cd-block" id="block-s"><span class="cd-num" id="num-s">08</span><span class="cd-lbl">Detik</span></div>
     </div>
     <div class="cd-progress">
       <div class="cd-pinfo"><span>Sinkronisasi Pemesanan Tiket</span><span id="pct-lbl">0%</span></div>
@@ -243,63 +258,95 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 </div>
 
 <script>
-/* ── CONFIG ── */
-const pConfig = {
-  year: 2026,
-  month: 3, // April
-  day: 29,
-  startHour: 6,
-  targetDate: new Date("April 30, 2026 10:00:00").getTime(),
-  simTime: 8000
-};
-
-/* ── DYNAMIC ISLAND LOGIC ── */
+/* ── DYNAMIC ISLAND CAPACITY LOGIC (UPDATED) ── */
 function updateIslandCapacity() {
-  const now = new Date().getTime();
-  const pStart = new Date(pConfig.year, pConfig.month, pConfig.day, pConfig.startHour, 0).getTime();
-  const pEnd = new Date(pConfig.year, pConfig.month, pConfig.day + 1, 23, 59).getTime();
-
-  let pct = 95;
-  if (now >= pStart && now < pEnd) {
-    const ratio = (now - pStart) / (pEnd - pStart);
-    pct = 95 - (ratio * 14);
-  } else if (now >= pEnd) {
-    pct = 81;
-  }
-
-  const roundedPct = Math.round(pct);
-  document.getElementById('di-pct').textContent = roundedPct + '%';
+  const now = new Date();
   
-  const dot = document.getElementById('di-dot');
-  if (roundedPct > 70) {
-    dot.style.background = 'var(--status-green)';
-    dot.style.boxShadow = '0 0 9px var(--status-green)';
-  } else if (roundedPct >= 25) {
-    dot.style.background = 'var(--status-yellow)';
-    dot.style.boxShadow = '0 0 9px var(--status-yellow)';
-  } else {
-    dot.style.background = 'var(--status-red)';
-    dot.style.boxShadow = '0 0 9px var(--status-red)';
+  // Set Target Date: 28 April 2026
+  const pDay = 28;
+  const pMonth = 3; // April (0-indexed)
+  const pYear = 2026;
+
+// Konfigurasi Baru: 29 April 2026
+const pYear = 2026;
+const pMonth = 3; // April adalah index 3 (Jan=0, Feb=1, dst)
+const pDay = 29;
+
+// Key Points in time
+const p1 = new Date(pYear, pMonth, pDay, 6, 0).getTime();    // 06:00 (29 Apr) -> 95%
+const p2 = new Date(pYear, pMonth, pDay + 1, 0, 0).getTime(); // 00:00 (30 Apr) -> 85% (Asumsi penurunan bertahap)
+const p3 = new Date(pYear, pMonth, pDay + 1, 23, 59).getTime(); // 23:59 (30 Apr) -> 81%
+
+const currentTime = now.getTime();
+let pct = 95;
+
+if (currentTime < p1) {
+  // Sebelum jam 06:00 tanggal 29
+  pct = 100; 
+} else if (currentTime >= p1 && currentTime < p2) {
+  // 06:00 (29 Apr) ke 00:00 (30 Apr) 
+  // Turun dari 95% ke 85% (Turun 10% dalam 18 jam)
+  const ratio = (currentTime - p1) / (p2 - p1);
+  pct = 95 - (ratio * 10); 
+} else if (currentTime >= p2 && currentTime < p3) {
+  // Sepanjang hari 30 April
+  // Turun perlahan dari 85% ke 81%
+  const ratio = (currentTime - p2) / (p3 - p2);
+  pct = 85 - (ratio * 4);
+} else {
+  // Setelah 30 April
+  pct = 81;
+}
+
+  // Update Tampilan
+  const roundedPct = Math.round(pct);
+  const pctEl = document.getElementById('di-pct');
+  const dotEl = document.getElementById('di-dot');
+
+  if (pctEl) pctEl.textContent = roundedPct + '%';
+
+  // Update Indikator Warna (Blink)
+  if (dotEl) {
+    if (roundedPct > 70) {
+      dotEl.style.background = 'var(--status-green)';
+      dotEl.style.boxShadow = '0 0 9px var(--status-green)';
+    } else if (roundedPct >= 25) {
+      dotEl.style.background = 'var(--status-yellow)';
+      dotEl.style.boxShadow = '0 0 9px var(--status-yellow)';
+    } else {
+      dotEl.style.background = 'var(--status-red)';
+      dotEl.style.boxShadow = '0 0 9px var(--status-red)';
+    }
   }
 }
 
-/* ── COUNTDOWN LOGIC ── */
-let simEnd = null;
+setInterval(updateIslandCapacity, 1000);
+updateIslandCapacity();
+
+/* ── Sparks Effect ── */
+(function(){
+  const c=document.getElementById('sparks');
+  for(let i=0;i<25;i++){
+    const p=document.createElement('div');p.className='spark';
+    p.style.cssText=`left:${Math.random()*100}%;--dx:${(Math.random()-.5)*150}px;animation-duration:${5+Math.random()*8}s;animation-delay:${Math.random()*5}s;`;
+    c.appendChild(p);
+  }
+})();
+
+/* ── Logic Countdown & Simulation ── */
+const targetDate = new Date("April 28, 2026 12:30:00").getTime();
+const SIM_TIME = 8000; 
+const simEnd = Date.now() + SIM_TIME;
+
 let pH='', pM='', pS='';
+
 function pad(n){ return String(Math.max(0,n)).padStart(2,'0'); }
 
 function tick(){
   const now = Date.now();
-  const realRem = pConfig.targetDate - now;
+  const realRem = targetDate - now;
 
-  if(realRem > 0){
-    const h = Math.floor(realRem/3600000);
-    const m = Math.floor((realRem%3600000)/60000);
-    const s = Math.floor((realRem%60000)/1000);
-    updateDisplay(pad(h), pad(m), pad(s));
-    setTimeout(tick, 1000);
-  } else {
-    if(!simEnd) simEnd = now + pConfig.simTime;
+  if(realRem <= 0){
     const simRem = simEnd - now;
     if(simRem <= 0){
       updateDisplay("00","00","00");
@@ -308,12 +355,21 @@ function tick(){
       setTimeout(openForm, 400);
       return;
     }
-    updateDisplay("00","00", pad(Math.floor(simRem/1000)));
+    const s = Math.floor(simRem/1000);
+    updateDisplay("00","00", pad(s));
+    
     ['block-h','block-m','block-s'].forEach(id=>document.getElementById(id).classList.add('urgent'));
-    const prog = Math.round(((pConfig.simTime-simRem)/pConfig.simTime)*100);
-    document.getElementById('cd-fill').style.width=prog+'%';
-    document.getElementById('pct-lbl').textContent=prog+'%';
+    const pct = Math.round(((SIM_TIME-simRem)/SIM_TIME)*100);
+    document.getElementById('cd-fill').style.width=pct+'%';
+    document.getElementById('pct-lbl').textContent=pct+'%';
     setTimeout(tick, 200);
+  } 
+  else {
+    const h = Math.floor(realRem/3600000);
+    const m = Math.floor((realRem%3600000)/60000);
+    const s = Math.floor((realRem%60000)/1000);
+    updateDisplay(pad(h), pad(m), pad(s));
+    setTimeout(tick, 1000);
   }
 }
 
@@ -330,67 +386,46 @@ function openForm(){
   document.getElementById('form-section').style.display='block';
 }
 
-/* ── SUBMIT LOGIC ── */
 async function handleSubmit() {
-  const name = document.getElementById('name-input').value.trim();
+  const nameInput = document.getElementById('name-input');
+  const name = nameInput.value.trim();
   const btn = document.getElementById('submit-btn');
-  if(!name) return alert("Masukkan nama lengkap");
-
-  btn.disabled = true; btn.textContent = "MENGIRIM...";
   
+  if(!name) return alert("Mohon masukkan nama lengkap Anda");
+
+  btn.disabled = true;
+  btn.textContent = "MENGIRIM...";
+  btn.style.opacity = "0.5";
+
   try {
     const scriptURL = 'https://script.google.com/macros/s/AKfycbxFbmwLZMkQWFU7y6p08uI448O8hRQx027eXmlMol33C77rbPu5DHipSotV7aYlwDHrmA/exec';
-    await fetch(`${scriptURL}?nama=${encodeURIComponent(name)}`, { method:'GET', mode:'no-cors' });
-  } catch(e) {}
+    
+    await fetch(`${scriptURL}?nama=${encodeURIComponent(name)}`, { 
+      method: 'GET',
+      mode: 'no-cors'
+    });
 
-  document.getElementById('t-name').textContent = name;
-  document.getElementById('t-row').textContent = ['A','B'][Math.floor(Math.random()*2)];
-  document.getElementById('t-seat').textContent = Math.floor(Math.random()*20)+1;
-  document.getElementById('t-order').textContent = "ORDER #" + Math.floor(Math.random()*9000+1000);
-  document.getElementById('page-countdown').style.display = 'none';
-  document.getElementById('page-ticket').style.display = 'flex';
-}
+    document.getElementById('t-name').textContent = name;
+    document.getElementById('t-row').textContent = ['A','B','C'][Math.floor(Math.random()*3)];
+    document.getElementById('t-seat').textContent = Math.floor(Math.random()*40)+1;
+    document.getElementById('t-order').textContent = "ORDER #" + Math.floor(Math.random()*9000+1000);
+    
+    document.getElementById('page-countdown').style.display = 'none';
+    document.getElementById('page-ticket').style.display = 'flex';
 
-/* ── EXTRA TICKET POPUP ── */
-function checkExtraTicket() {
-  if (!localStorage.getItem('extraTicketClaimed')) {
-    const div = document.createElement('div');
-    div.id = "extraTicketPopup";
-    div.className = "popup-overlay show";
-    div.innerHTML = `
-      <div class="popup-box" style="border-color: #2ecc71;">
-        <div style="font-size:50px">🎫</div>
-        <div class="form-title" style="color: #2ecc71;">BONUS TIKET!</div>
-        <p style="font-size:14px; color:#fff; margin-bottom:20px">Anda mendapatkan akses prioritas antrean!</p>
-        <button class="submit-btn" style="background:#2ecc71" onclick="claimTicket()">AMBIL SEKARANG</button>
-      </div>`;
-    document.body.appendChild(div);
+  } catch (error) {
+    console.error('Error!', error.message);
+    document.getElementById('t-name').textContent = name;
+    document.getElementById('page-countdown').style.display = 'none';
+    document.getElementById('page-ticket').style.display = 'flex';
   }
 }
-function claimTicket() {
-  localStorage.setItem('extraTicketClaimed', 'true');
-  document.getElementById('extraTicketPopup').remove();
+
+function showScreenshotPopup(){
+  document.getElementById('popup-ss').classList.add('show');
 }
 
-function showScreenshotPopup(){ document.getElementById('popup-ss').classList.add('show'); }
-
-/* ── INIT ── */
-setInterval(updateIslandCapacity, 1000);
-updateIslandCapacity();
-
-(function(){
-  const c=document.getElementById('sparks');
-  for(let i=0;i<25;i++){
-    const p=document.createElement('div');p.className='spark';
-    p.style.cssText=`left:${Math.random()*100}%;--dx:${(Math.random()-.5)*150}px;animation-duration:${5+Math.random()*8}s;animation-delay:${Math.random()*5}s;`;
-    c.appendChild(p);
-  }
-})();
-
-window.onload = () => {
-  tick();
-  setTimeout(checkExtraTicket, 3000);
-};
+tick();
 </script>
 </body>
 </html>
