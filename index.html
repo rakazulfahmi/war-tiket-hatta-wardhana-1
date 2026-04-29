@@ -267,32 +267,26 @@ function updateIslandCapacity() {
   const pMonth = 3; // April (0-indexed)
   const pYear = 2026;
 
-// Konfigurasi Baru: 29 April 2026
+// Konfigurasi Waktu: 29 April 2026
 const pYear = 2026;
-const pMonth = 3; // April adalah index 3 (Jan=0, Feb=1, dst)
+const pMonth = 3; // April (0-indexed)
 const pDay = 29;
 
 // Key Points in time
-const p1 = new Date(pYear, pMonth, pDay, 6, 0).getTime();    // 06:00 (29 Apr) -> 95%
-const p2 = new Date(pYear, pMonth, pDay + 1, 0, 0).getTime(); // 00:00 (30 Apr) -> 85% (Asumsi penurunan bertahap)
-const p3 = new Date(pYear, pMonth, pDay + 1, 23, 59).getTime(); // 23:59 (30 Apr) -> 81%
+const pStart = new Date(pYear, pMonth, pDay, 6, 0).getTime();      // 06:00 (29 Apr) -> 95%
+const pEnd   = new Date(pYear, pMonth, pDay + 1, 23, 59).getTime(); // 23:59 (30 Apr) -> 81%
 
 const currentTime = now.getTime();
 let pct = 95;
 
-if (currentTime < p1) {
-  // Sebelum jam 06:00 tanggal 29
-  pct = 100; 
-} else if (currentTime >= p1 && currentTime < p2) {
-  // 06:00 (29 Apr) ke 00:00 (30 Apr) 
-  // Turun dari 95% ke 85% (Turun 10% dalam 18 jam)
-  const ratio = (currentTime - p1) / (p2 - p1);
-  pct = 95 - (ratio * 10); 
-} else if (currentTime >= p2 && currentTime < p3) {
-  // Sepanjang hari 30 April
-  // Turun perlahan dari 85% ke 81%
-  const ratio = (currentTime - p2) / (p3 - p2);
-  pct = 85 - (ratio * 4);
+if (currentTime < pStart) {
+  // Sebelum jam 06:00 tanggal 29, nilai dikunci di 95%
+  pct = 95;
+} else if (currentTime >= pStart && currentTime < pEnd) {
+  // Rentang dari 29 Apr 06:00 s.d. 30 Apr 23:59
+  // Menghitung penurunan linear dari 95 ke 81 (selisih 14%)
+  const ratio = (currentTime - pStart) / (pEnd - pStart);
+  pct = 95 - (ratio * 14);
 } else {
   // Setelah 30 April
   pct = 81;
